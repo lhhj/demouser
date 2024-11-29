@@ -20,7 +20,7 @@ RUN useradd -rm -d /home/$USER -s /bin/bash -u $UID -G sudo $USER && \
     echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Set up SSH keys
-COPY ./docker/DemoUser/id_rsa_docker.pub /home/$USER/.ssh/authorized_keys
+COPY ./docker/path/to/demouser/id_rsa_docker.pub /home/$USER/.ssh/authorized_keys
 RUN chmod 600 /home/$USER/.ssh/authorized_keys && \
     chown -R $USER:$USER /home/$USER/.ssh
 
