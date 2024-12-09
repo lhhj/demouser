@@ -35,9 +35,13 @@ USER ubuntu
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
+EXPOSE ${SSH_PORT}
+
+# Start SSH
+CMD ["/usr/sbin/sshd", "-D"]
 
 # Start SSH, OneDrive sync, and Python script
-CMD ["/bin/bash", "-c", "/usr/sbin/sshd -D & \
-    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize && \
-    python3 /home/ubuntu/work/Onedrive/demodata/ols.py && \
-    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize"]
+#CMD ["/bin/bash", "-c", "/usr/sbin/sshd -D & \
+#    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize && \
+#    python3 /home/ubuntu/work/Onedrive/demodata/ols.py && \
+#    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize"]
