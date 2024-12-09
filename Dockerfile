@@ -1,4 +1,4 @@
-v# Use a specific Ubuntu base image
+# Use a specific Ubuntu base image
 FROM ubuntu:22.04
 
 # Set environment variables
