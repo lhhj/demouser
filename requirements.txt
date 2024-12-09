@@ -1,6 +1,5 @@
 numpy
 pandas
-opencv-python
 seaborn
 statsmodels
 matplotlib
