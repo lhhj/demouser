@@ -35,13 +35,6 @@ USER ubuntu
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
-# Add a work directory and set correct permissions
-USER root
-RUN mkdir -p /home/ubuntu/work/onedrive_config /home/ubuntu/work/Onedrive && \
-    chown -R ubuntu:ubuntu /home/ubuntu/work
-
-# Expose the SSH port
-EXPOSE ${SSH_PORT}
 
 # Start SSH, OneDrive sync, and Python script
 CMD ["/bin/bash", "-c", "/usr/sbin/sshd -D & \
