@@ -47,4 +47,5 @@ RUN mkdir -p /home/work && chown -R ubuntu:ubuntu /home/work
 EXPOSE ${SSH_PORT}
 
 # Start SSH
-CMD ["/usr/sbin/sshd", "-D"]
+# Start SSH and run OneDrive synchronization and script
+CMD ["/bin/bash", "-c", "/usr/sbin/sshd -D & onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize && python3 /home/ubuntu/work/Onedrive/demodata/ols.py && onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize "]
