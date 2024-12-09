@@ -23,10 +23,6 @@ COPY id_rsa_docker.pub /home/$USER/.ssh/authorized_keys
 RUN chmod 600 /home/$USER/.ssh/authorized_keys && \
     chown -R $USER:$USER /home/$USER/.ssh
 
-# Check and create symbolic link for resolv.conf if not exists
-RUN if [ ! -L /etc/resolv.conf ]; then \
-    ln -sf /lib/systemd/systemd-resolved.service /etc/resolv.conf; \
-    fi
 
 # Expose the SSH port (port 888)
 EXPOSE 888
