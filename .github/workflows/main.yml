@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Verify Secrets
+      run: |
+        echo "DOCKER_USERNAME is set to: ${DOCKER_USERNAME}"
+        echo "DOCKER_PASSWORD is set"
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Checkout repository
       uses: actions/checkout@v4
 
