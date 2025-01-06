@@ -30,7 +30,7 @@ COPY id_rsa_docker.pub /home/ubuntu/.ssh/authorized_keys
 RUN chmod 600 /home/ubuntu/.ssh/authorized_keys && \
     chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 
-# Set up Python dependencies
+# Set up Python dependencies ch
 USER ubuntu
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
