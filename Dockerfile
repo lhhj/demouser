@@ -19,6 +19,9 @@ RUN mkdir -p /var/run/sshd && \
     sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 
+# Generate SSH host keys
+RUN ssh-keygen -A
+
 # Create a non-root user with sudo access
 RUN id -u ubuntu || useradd -rm -d /home/ubuntu -s /bin/bash -u 1000 -G sudo ubuntu && \
     echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
@@ -30,7 +33,7 @@ COPY id_rsa_docker.pub /home/ubuntu/.ssh/authorized_keys
 RUN chmod 600 /home/ubuntu/.ssh/authorized_keys && \
     chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 
-# Set up Python dependencies ch
+# Set up Python dependencies
 USER ubuntu
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
@@ -39,9 +42,3 @@ EXPOSE ${SSH_PORT}
 
 # Start SSH
 CMD ["/usr/sbin/sshd", "-D"]
-
-# Start SSH, OneDrive sync, and Python script
-#CMD ["/bin/bash", "-c", "/usr/sbin/sshd -D & \
-#    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize && \
-#    python3 /home/ubuntu/work/Onedrive/demodata/ols.py && \
-#    onedrive --confdir='/home/ubuntu/work/onedrive_config' --syncdir='/home/ubuntu/work/Onedrive' --single-directory 'demodata' --synchronize"]
