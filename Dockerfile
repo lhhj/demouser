@@ -30,7 +30,7 @@ RUN id -u ubuntu || useradd -rm -d /home/ubuntu -s /bin/bash -u 1000 -G sudo ubu
 
 # Set up SSH keys
 COPY ./id_rsa_docker.pub /home/ubuntu/.ssh/authorized_keys
-RUN cat /home/ubuntu/.ssh/id_rsa_docker.pub 
+RUN cat /home/ubuntu/.ssh/authorized_keys 
 RUN chmod 600 /home/ubuntu/.ssh/authorized_keys && \
     chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 
