@@ -19,7 +19,8 @@ RUN mkdir -p /var/run/sshd && \
     sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 
-# Generate SSH host keys
+# Delete old keys and Generate SSH host keys
+RUN rm -f /etc/ssh/ssh_host_*
 RUN ssh-keygen -A
 
 # Create a non-root user with sudo access
@@ -30,7 +31,7 @@ RUN id -u ubuntu || useradd -rm -d /home/ubuntu -s /bin/bash -u 1000 -G sudo ubu
 
 # Set up SSH keys
 COPY ./id_rsa_docker.pub /home/ubuntu/.ssh/authorized_keys
-RUN cat /home/ubuntu/.ssh/authorized_keys 
+RUN cat /home/ubuntu/.ssh/authorized_keys
 RUN chmod 600 /home/ubuntu/.ssh/authorized_keys && \
     chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 
