@@ -12,6 +12,10 @@ RUN apt-get update && \
     apt-get install -y onedrive && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+RUN curl -sL "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64" \
+      --output /tmp/vscode-cli.tar.gz && \
+    tar -xf /tmp/vscode-cli.tar.gz -C /usr/bin && \
+    rm /tmp/vscode-cli.tar.gz
 
 # Configure SSH
 RUN mkdir -p /var/run/sshd && \
@@ -46,4 +50,5 @@ fi\n\
 exec /usr/sbin/sshd -D\n\
 ' > /start-ssh.sh && chmod +x /start-ssh.sh
 
-CMD ["/start-ssh.sh"]
+#CMD ["/start-ssh.sh"]
+CMD [ "code", "tunnel", "--accept-server-license-terms" ]
