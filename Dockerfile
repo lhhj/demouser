@@ -9,7 +9,7 @@ ENV SSH_PORT=888
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     openssh-server sudo nano python3 python3-venv python3-pip libcurl4 libcurl4-openssl-dev && \
-    apt-get install -y onedrive && \
+    apt-get install -y onedrive curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 RUN curl -sL "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64" \
